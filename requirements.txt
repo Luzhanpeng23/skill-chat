@@ -1,0 +1,9 @@
+pydantic-ai>=1.14.0
+pydantic-ai-skills
+langchain-core
+langchain-openai
+langgraph
+openai>=1.0.0
+starlette>=0.48.0
+uvicorn>=0.37.0
+PyYAML

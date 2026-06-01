@@ -1,0 +1,11 @@
+services:
+  app:
+    build: .
+    container_name: skill-chat
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./data:/app/data
+      - ./books:/app/books
+      - ./skills:/app/skills
+    restart: unless-stopped

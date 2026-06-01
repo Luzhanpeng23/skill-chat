@@ -1,4 +1,4 @@
-import { CirclePlus, LogOut, MessageCircle, Shield, Sparkles, Store, Trash2 } from 'lucide-react'
+import { BookOpen, CirclePlus, LogOut, MessageCircle, Shield, Sparkles, Store, Trash2 } from 'lucide-react'
 import type React from 'react'
 import { useEffect, useMemo, useState } from 'react'
 import { toast } from 'sonner'
@@ -31,6 +31,7 @@ import type { ConversationEntry, UserProfile } from '@/types'
 import { getConversations, deleteConversation as deleteConv } from '@/lib/chat-db'
 import { stripBasePath, withBasePath } from '@/lib/base-path'
 import { ModeToggle } from './mode-toggle'
+import { GuideDialog } from './guide-dialog'
 
 function useConversations(): ConversationEntry[] {
   const [conversations, setConversations] = useState<ConversationEntry[]>([])
@@ -235,6 +236,21 @@ export function AppSidebar({ currentUser, onLogout }: { currentUser: UserProfile
         </SidebarContent>
 
         <SidebarFooter className="p-4">
+          <div className="group-data-[state=collapsed]:hidden mb-4">
+            <SidebarMenu>
+              <SidebarMenuItem>
+                <GuideDialog>
+                  <SidebarMenuButton
+                    tooltip="功能指南"
+                    className="font-medium transition-colors hover:bg-muted/50 text-muted-foreground"
+                  >
+                    <BookOpen className="opacity-70" />
+                    <span>功能指南</span>
+                  </SidebarMenuButton>
+                </GuideDialog>
+              </SidebarMenuItem>
+            </SidebarMenu>
+          </div>
           <div className="flex items-center justify-between group-data-[state=collapsed]:hidden mb-4">
             <div className="flex flex-col min-w-0">
               <span className="truncate text-sm font-semibold text-foreground leading-tight">{currentUser.email}</span>

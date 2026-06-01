@@ -1,6 +1,10 @@
 # Skill Chat
 
-基于 AI 的技能提取与对话平台。将电子书（EPUB）自动解析为结构化技能集合，并提供多模型 AI 对话能力。
+基于 AI 的技能提取与对话平台。将电子书（EPUB）自动解析为结构化技能集合（标准skill格式），并提供多模型 AI 对话能力。
+
+🔗 **在线体验**：[https://chat.catty.dpdns.org](https://chat.catty.dpdns.org)
+
+![效果示例](docs/image.png)
 
 ## 功能概览
 

@@ -693,15 +693,25 @@ async def chat(request: Request) -> Response:
         if not pack:
             return []
         published_paths = pack.get("publishedPaths") or []
-        # 从发布的 SKILL.md 路径中提取唯一的技能根目录
+        # 从发布的路径中提取唯一的技能根目录
         skill_roots: set[Path] = set()
         for p in published_paths:
             try:
                 path = Path(p)
-                # publishedPaths 指向 SKILL.md 文件，取其父目录的父目录作为技能根
-                # 例如: skills/skill-task-xxx/apply-xxx/SKILL.md → skills/skill-task-xxx
-                if path.name == "SKILL.md" and path.parent.parent.exists():
-                    skill_roots.add(path.parent.parent)
+                # publishedPaths 可能是绝对路径或以 /app/skills/ 开头的路径
+                # 需要从中提取 skill-task-xxx 部分，然后用 SKILLS_ROOT 重建路径
+                parts = path.parts
+                # 查找 skill-task-xxx 目录名
+                skill_task_dir = None
+                for i, part in enumerate(parts):
+                    if part.startswith("skill-task-"):
+                        skill_task_dir = part
+                        break
+                if skill_task_dir:
+                    # 使用当前的 SKILLS_ROOT 重建路径
+                    reconstructed = SKILLS_ROOT / skill_task_dir
+                    if reconstructed.exists():
+                        skill_roots.add(reconstructed)
             except (ValueError, OSError):
                 continue
         return list(skill_roots)
